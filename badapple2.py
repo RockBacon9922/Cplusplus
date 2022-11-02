@@ -11,8 +11,12 @@ cap = cv.VideoCapture('media/Touhou - Bad Apple.mp4')
 total_frames = int(cap.get(cv.CAP_PROP_FRAME_COUNT))
 
 # get the width and height of the video
-width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH))  # 480
-height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT))  # 360
+
+scale_percent = 12  # percent of original size
+width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH) * scale_percent / 100)  # 480
+height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT) * scale_percent / 100)  # 360
+# get frame rate
+fps = cap.get(cv.CAP_PROP_FPS)
 
 # define black and white
 black = [0, 0, 0]
@@ -22,15 +26,16 @@ white = [255, 255, 255]
 print(chr(27) + "[2J")
 for i in range(total_frames):
     ret, frame = cap.read()
+    frame = cv2.resize(frame, (width, height))
     # convert image to text
     text = ''
     for y in range(height):
         for x in range(width):
-            if frame[y, x].sum() >= 254 * 3:
+            if frame[y, x].sum() >= 200 * 3:
                 text += '🍏'
             else:
                 text += '🍎'
         text += "\n"
     # display text
     print(text)
-    time.sleep(60 / 1000)
+    time.sleep(fps / 1000)
