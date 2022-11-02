@@ -1,0 +1,6 @@
+// Here is the explanation for the code above:
+// 1. We use the function parseString to split the string into an array of paragraphs and an array of words within each paragraph.
+// 2. We then use the toWordDoc function to convert the array of paragraphs and words into an array of table rows.
+// 3. In the toWordDoc function, we iterate through the array of paragraphs and words, and create a table row for each paragraph, and for each word within each paragraph. We also add a table row with an empty table cell to add space between each paragraph.
+// 4. We create a new document and add the table rows to the new document.
+// 5. We save the new document.
