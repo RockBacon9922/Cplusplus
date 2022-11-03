@@ -12,7 +12,13 @@ total_frames = int(cap.get(cv.CAP_PROP_FRAME_COUNT))
 
 # get the width and height of the video
 
-scale_percent = 12  # percent of original size
+usr = input("Enter the scale percent of the video: ")
+try:
+    scale_percent = int(usr)  # percent of original size
+    if scale_percent > 100 or scale_percent < 0:
+        scale_percent = 12
+except:
+    scale_percent = 12
 width = int(cap.get(cv.CAP_PROP_FRAME_WIDTH) * scale_percent / 100)  # 480
 height = int(cap.get(cv.CAP_PROP_FRAME_HEIGHT) * scale_percent / 100)  # 360
 # get frame rate
@@ -23,7 +29,6 @@ black = [0, 0, 0]
 white = [255, 255, 255]
 
 # delete everything in the console then convert the video to text the print the text
-print(chr(27) + "[2J")
 for i in range(total_frames):
     ret, frame = cap.read()
     frame = cv2.resize(frame, (width, height))
